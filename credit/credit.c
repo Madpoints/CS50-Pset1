@@ -5,8 +5,9 @@
 int main(void) {
     long long int cardNum;
     long long int cardLength;
-    int digit;
     int counter = 0;
+    int evenSum = 0;
+    int oddSum = 0;
 
     //get the card number from the user
     do {
@@ -25,16 +26,47 @@ int main(void) {
 
     // if the count is less than 13
 	if (counter < 13 || counter > 16) {
-	    printf("%s\n", "Invalid");
+	    printf("%s\n", "INVALID");
 	} else {
-	    printf("%s", "Number of digits: ");
-    	printf("%d\n", counter);
+	    int *cardArray = malloc(10 * sizeof(counter));
+	   // printf("%s", "Number of digits: ");
+    // 	printf("%d\n", counter);
+	    counter = 0;
         //  else loop through card number using modulo and dviding by 10
         while (cardNum) {
-            digit = cardNum % 10;
-            printf("%d", digit);
+            cardArray[counter] = cardNum % 10;
+            // printf("%d", cardArray[counter]);
+            counter++;
             cardNum /= 10;
         }
-        printf("\n");
+
+        for (counter = 0; counter < sizeof(cardArray) * 2; counter++) {
+            // printf("%d", cardArray[counter]);
+            if (counter % 2 != 0) {
+                if (cardArray[counter] * 2 >= 10) {
+                    oddSum += cardArray[counter] * 2 % 10;
+                    oddSum += 1;
+                } else {
+                    oddSum += cardArray[counter] * 2;
+                }
+            } else {
+                evenSum += cardArray[counter];
+            }
+        }
+        // printf("\n");
+
+        int total = evenSum + oddSum;
+
+        if (total % 10 == 0) {
+            if (cardArray[sizeof(cardArray) * 2 - 1] == 4) {
+                printf("%s\n", "VISA");
+            } else if (cardArray[sizeof(cardArray) * 2 - 1] == 5) {
+                printf("%s\n", "MASTERCARD");
+            } else if (cardArray[sizeof(cardArray) * 2 - 2] == 3) {
+                printf("%s\n", "AMEX");
+            }
+        } else {
+            printf("%s\n", "INVALID");
+        }
 	}
 }
