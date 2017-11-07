@@ -2,10 +2,12 @@
 #include <cs50.h>
 #include <math.h>
 
-int main(void) {
+int main(void)
+{
     float f;
     //get amount of change needed from user
-    do {
+    do
+    {
         printf("How much change do you need? ");
         f = get_float();
     }
